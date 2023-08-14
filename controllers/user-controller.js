@@ -44,11 +44,17 @@ const userController = {
   getUser: (req, res, next) => {
     return Promise.all([
       User.findByPk(req.params.id, {
-        raw: true
+        include: [
+          { model: Restaurant, as: 'FavoritedRestaurants' },
+          { model: User, as: 'Followers' },
+          { model: User, as: 'Followings' }
+        ]
       }),
       Comment.findAndCountAll({
         include: Restaurant,
         where: { userId: req.params.id },
+        order: [['createdAt', 'DESC']],
+        group: ['restaurantId'],
         raw: true,
         nest: true
       })
@@ -56,10 +62,17 @@ const userController = {
       .then(([user, userComments]) => {
         if (!user) throw new Error("User didn't exist!")
 
+        const result = {
+          ...user.toJSON(),
+          favoritedCount: user.FavoritedRestaurants.length,
+          followerCount: user.Followers.length,
+          followingCount: user.Followings.length
+        }
+
         res.render('users/profile', {
-          user,
+          user: result,
           comments: userComments.rows,
-          count: userComments.count
+          commentsCount: userComments.count.length
         })
       })
       .catch(err => next(err))

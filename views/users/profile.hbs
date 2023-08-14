@@ -7,22 +7,70 @@
       <div class="card-body">
         <h5 class="card-title">{{ user.name }}</h5>
         <p class="card-text">{{ user.email }}</p>
-        <p class="card-text">{{ count }} 已評論餐廳</p>
+
+        <div class="mb-2">
+          <p class="card-text m-0">{{ commentsCount }} 已評論餐廳</p>
+          <p class="card-text m-0">{{ user.favoritedCount }} 收藏的餐廳</p>
+          <p class="card-text m-0">{{ user.followingCount }} followings(追蹤者)</p>
+          <p class="card-text m-0">{{ user.followerCount }} followings(追蹤者)</p>
+        </div>
         <a href="/users/{{ user.id }}/edit" class="btn btn-primary">edit</a>
       </div>
     </div>
   </div>
 </div>
 
-<div class="card text-dark bg-light mb-3">
-  <div class="card-header">{{ count }} 已評論餐廳</div>
-  <div class="card-body">
-    <div class="d-flex justify-content-around flex-wrap">
-      {{#each comments}}
-        <a href="/restaurants/{{this.restaurantId}}">
-          <img src="{{ this.Restaurant.image }}" class="img-fluid rounded-start my-2" alt="restaurant image">
-        </a>
-      {{/each}}
+<div class="row">
+  <div class="col-md-4">
+    <div class="card text-dark bg-light mb-3">
+      <div class="card-header">{{ user.followingCount }} followings(追蹤者)</div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap">
+          {{#each user.Followings}}
+          <a href="/users/{{this.id}}">
+            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="80px" alt="{{ this.name }}">
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="card text-dark bg-light mb-3">
+      <div class="card-header">{{ user.followerCount }} followers(追隨者)</div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap">
+          {{#each user.Followers}}
+          <a href="/users/{{this.id}}">
+            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="80px" alt="{{ this.name }}">
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card text-dark bg-light mb-3">
+      <div class="card-header">{{ commentsCount }} 已評論餐廳</div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap">
+          {{#each comments}}
+          <a href="/restaurants/{{this.restaurantId}}">
+            <img src="{{ this.Restaurant.image }}" class="img-fluid rounded-start m-1" width="80px" alt="restaurant image">
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="card text-dark bg-light mb-3">
+      <div class="card-header">{{ user.favoritedCount }} 收藏的餐廳</div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap">
+          {{#each user.FavoritedRestaurants}}
+          <a href="/restaurants/{{this.restaurantId}}">
+            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="80px" alt="restaurant image">
+          </a>
+          {{/each}}
+        </div>
+      </div>
     </div>
   </div>
 </div>
