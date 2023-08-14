@@ -28,7 +28,7 @@
         <div class="d-flex flex-wrap">
           {{#each user.Followings}}
           <a href="/users/{{this.id}}">
-            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="80px" alt="{{ this.name }}">
+            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="70px" alt="{{ this.name }}">
           </a>
           {{/each}}
         </div>
@@ -40,7 +40,7 @@
         <div class="d-flex flex-wrap">
           {{#each user.Followers}}
           <a href="/users/{{this.id}}">
-            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="80px" alt="{{ this.name }}">
+            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="70px" alt="{{ this.name }}">
           </a>
           {{/each}}
         </div>
@@ -54,7 +54,7 @@
         <div class="d-flex flex-wrap">
           {{#each comments}}
           <a href="/restaurants/{{this.restaurantId}}">
-            <img src="{{ this.Restaurant.image }}" class="img-fluid rounded-start m-1" width="80px" alt="restaurant image">
+            <img src="{{ this.Restaurant.image }}" class="img-fluid rounded-start m-1" width="70px" alt="restaurant image">
           </a>
           {{/each}}
         </div>
@@ -66,7 +66,7 @@
         <div class="d-flex flex-wrap">
           {{#each user.FavoritedRestaurants}}
           <a href="/restaurants/{{this.id}}">
-            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="80px" alt="restaurant image">
+            <img src="{{ this.image }}" class="img-fluid rounded-start m-1" width="70px" alt="restaurant image">
           </a>
           {{/each}}
         </div>
