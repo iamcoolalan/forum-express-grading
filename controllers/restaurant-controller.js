@@ -44,27 +44,36 @@ const restaurantController = {
       .catch(err => next(err))
   },
   getRestaurant: (req, res, next) => {
-    Restaurant.findByPk(req.params.id, {
-      include: [
-        Category,
-        { model: Comment, include: User },
-        { model: User, as: 'FavoritedUsers' },
-        { model: User, as: 'LikedUsers' }
-      ]
-    })
-      .then(restaurant => {
+    Promise.all([
+      Restaurant.findByPk(req.params.id, {
+        include: [
+          Category,
+          { model: User, as: 'FavoritedUsers' },
+          { model: User, as: 'LikedUsers' }
+        ]
+      }),
+      Comment.findAll({
+        where: { restaurantId: req.params.id },
+        order: [['createdAt', 'DESC']],
+        include: User,
+        raw: true,
+        nest: true
+      })
+    ])
+      .then(([restaurant, comments]) => {
         if (!restaurant) throw new Error("Restaurant didn't exist!")
 
-        return restaurant.increment('viewCounts', { by: 1 })
+        return Promise.all([restaurant.increment('viewCounts', { by: 1 }), comments])
       })
-      .then(restaurant => {
+      .then(([restaurant, comments]) => {
         const isFavorited = restaurant.FavoritedUsers.some(f => f.id === req.user.id)
         const isLiked = restaurant.LikedUsers.some(l => l.id === req.user.id)
 
         res.render('restaurant', {
           restaurant: restaurant.toJSON(),
           isFavorited,
-          isLiked
+          isLiked,
+          comments
         })
       })
       .catch(err => next(err))

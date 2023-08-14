@@ -45,7 +45,7 @@
 
 {{!-- Comment --}}
 <h3 class="mb-3">所有評論：</h3>
-{{#each restaurant.Comments}}
+{{#each comments}}
 <blockquote class="blockquote mb-0">
   {{#if ../user.isAdmin}}
   <form action="/comments/{{this.id}}?_method=DELETE" method="POST" class="float-end">
