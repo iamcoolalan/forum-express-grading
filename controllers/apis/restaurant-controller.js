@@ -1,4 +1,4 @@
-const restaurantServices = require('../../services/restaurant-service')
+const restaurantServices = require('../../services/restaurant-services')
 
 const restaurantController = {
   getRestaurants: (req, res, next) => {
