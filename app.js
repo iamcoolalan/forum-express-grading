@@ -1,7 +1,7 @@
 const path = require('path')
 
 const express = require('express')
-const { pages } = require('./routes')
+const { pages, apis } = require('./routes')
 const exhbs = require('express-handlebars')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -39,6 +39,8 @@ app.use((req, res, next) => {
   res.locals.user = getUser(req)
   next()
 })
+
+app.use('/api', apis)
 app.use(pages)
 
 app.listen(port, () => {
