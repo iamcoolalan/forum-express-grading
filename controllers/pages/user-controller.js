@@ -32,7 +32,7 @@ const userController = {
   signInPage: (req, res) => {
     res.render('signin')
   },
-  singIn: (req, res) => {
+  signIn: (req, res) => {
     req.flash('success_messages', '成功登入!')
     res.redirect('/restaurants')
   },

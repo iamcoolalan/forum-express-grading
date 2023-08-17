@@ -21,7 +21,7 @@ router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', {
   failureRedirect: '/signin',
   failureFlash: true
-}), userController.singIn)
+}), userController.signIn)
 router.get('/logout', userController.logout)
 
 router.get('/users/top', userController.getTopUsers)
